@@ -1,7 +1,3 @@
-root {
-  --dark-blue: #363f5f;
-  --green: #49aa26;
-}
 * {
   margin: 0;
   padding: 0;
@@ -10,10 +6,42 @@ root {
 
 html {
   font-size: 93.75%; /*15px*/
+  --navy-blue: #363f5f;
+  --navy: #363f5f;
+  --green: #49aa26;
+  --green-hover: #3dd705;
+  --light-green: #7dc762;
+  --green-income: #12a454;
+  --red: #e92929;
+  --gray: #969cb3;
+
+  --bg: #f0f2f5;
+  --bg-modal: #f0f2f5;
+  --bg-half: #2d4a22;
+  --bg-color: #ffffff;
+  --bgToggle: #053814;
+  --title-white: #ffffff;
+  --title-white-modal: #000000;
+  --bg-transparent: #ffffff;
+  --bg-shadow: rgba(0, 0, 0, 0.2);
+  --bg-border: rgba(0, 0, 0, 0.1);
+
+  --bg-dark: #121212;
+  --bg-modal-dark: #2c2c2c;
+  --bg-half-dark: #121212;
+  /* --bg-half-dark: #032c17; */
+  --bg-color-dark: #2c2c2c;
+  --bgToggle-dark: #0b6b28;
+  --bg-transparent-dark: rgba(255, 255, 255, 0.05);
+  --bg-shadow-dark: rgba(0, 0, 0, 0.2);
+  --bg-border-dark: rgba(255, 255, 255, 0.1);
+  --titles-color: #363f5f;
+  --title-black-modal: #ffffff;
+  --titles-color-dark: #535f8b;
 }
 
 body {
-  background: #f0f2f5;
+  background: var(--bg);
   font-family: 'Poppins', sans-serif;
 }
 
@@ -22,13 +50,66 @@ body {
 ##############*/
 
 header {
-  background-color: #2d4a22;
+  background-color: var(--bg-half);
   padding: 2rem 0 14rem;
   text-align: center;
 }
 
+#header-space {
+  justify-content: center;
+  flex-direction: row;
+}
+
+#switch {
+  position: absolute;
+  right: 0;
+  visibility: hidden;
+}
+
+header > div > input[type='checkbox'] {
+  height: 0;
+  width: 0;
+}
+
+header > div > label {
+  cursor: pointer;
+  text-indent: -9999px;
+  position: absolute;
+  right: 0;
+  width: 52px;
+  height: 27px;
+  background: var(--bgToggle);
+  float: right;
+  border-radius: 100px;
+}
+
+header > div > label::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--title-white);
+  border-radius: 90px;
+  transition: 0.3s;
+}
+
+header > div > input:checked + label {
+  background-color: var(--bgToggle-dark);
+}
+
+header > div > input:checked + label::after {
+  left: calc(100% - 5px);
+  transform: translateX(-100%);
+}
+
+header > div > label:active:after {
+  width: 45px;
+}
+
 #logo {
-  color: white;
+  color: var(--title-white);
   font-weight: 100;
 }
 
@@ -47,7 +128,7 @@ header {
 
 #balance h2,
 #transaction h2 {
-  color: #ffffff;
+  color: var(--title-white);
   font-weight: 400;
   margin-bottom: 0.8rem;
 }
@@ -64,18 +145,24 @@ header {
   border-width: 0;
 }
 
+section .card {
+  position: relative;
+  background: var(--bg-transparent);
+  box-shadow: 0 15px 35px var(--bg-shadow);
+  border-top: 1px solid var(--bg-border);
+  border-bottom: 1px solid var(--bg-border);
+}
+
 .card {
-  background: #ffffff;
   padding: 1.5rem 2rem;
   border-radius: 0.5rem;
   margin-bottom: 2rem;
-  color: #363f5f;
+  color: var(--titles-color);
 }
 
 .card h3 {
   font-weight: normal;
   font-size: 1rem;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -88,14 +175,14 @@ header {
 }
 
 .card.total {
-  background: #49aa26;
+  background: var(--light-green);
 }
 .card.total h3 {
-  color: #ffffff;
+  color: var(--title-white);
 }
 
 .card.total p {
-  color: #ffffff;
+  color: var(--title-white);
 }
 
 /* TRANSACTION */
@@ -103,7 +190,7 @@ header {
 #transaction h2 {
   display: block;
   width: 100%;
-  color: #363f5f;
+  color: var(--titles-color);
   margin-top: 3.2rem;
 
   overflow-x: auto;
@@ -111,11 +198,11 @@ header {
 
 .button {
   text-decoration: none;
-  color: #49aa26;
+  color: var(--green);
 }
 
 a:hover {
-  color: #3dd705;
+  color: var(--green-hover);
 }
 
 .button .new {
@@ -123,8 +210,8 @@ a:hover {
   display: inline-block;
 }
 .button.cancel {
-  color: #e92929;
-  border: 2px #e92929 solid;
+  color: var(--red);
+  border: 2px var(--red) solid;
   border-radius: 0.25rem;
 
   height: 50px;
@@ -144,8 +231,8 @@ button {
   height: 50px;
 
   border: none;
-  color: white;
-  background-color: #49aa26;
+  color: var(--title-white);
+  background-color: var(--green);
 
   padding: 0;
   border-radius: 0.25rem;
@@ -154,22 +241,22 @@ button {
 }
 
 button:hover {
-  background: #3dd705;
+  background: var(--green-hover);
 }
 
 #data-table {
   width: 100%;
   border-spacing: 0 0.5rem;
-  color: #969cb3;
+  color: var(--gray);
 }
 
 table th,
 table td {
-  background: #ffffff;
+  background: var(--bg-color);
   font-weight: normal;
   padding: 1rem 2rem;
   text-align: left;
-  color: #969cb3;
+  color: var(--gray);
 }
 
 table thead tr th:first-child,
@@ -191,15 +278,15 @@ table tbody tr:hover {
 }
 
 td.description {
-  color: #363f5f;
+  color: var(--navy);
 }
 
 td.expenses {
-  color: #e92929;
+  color: var(--red);
 }
 
 td.incomes {
-  color: #12a454;
+  color: var(--green-income);
 }
 
 /*##############
@@ -228,9 +315,10 @@ td.incomes {
 }
 
 .modal {
-  background: #f0f2f5;
+  background: var(--bg-modal);
   padding: 2.4rem;
   position: relative;
+  border-radius: 10px;
   z-index: 1;
   /* width: 90%;
   max-width: 500px; */
@@ -241,10 +329,16 @@ td.incomes {
 }
 
 #form h2 {
+  color: var(--title-white-modal);
   margin-top: 0;
 }
 
 input {
+  color: var(--navy);
+  background: var(--bg-transparent-dark);
+  box-shadow: 0 15px 35px var(--bg-shadow-dark);
+  border-top: 1px solid var(--bg-border-dark);
+  border-bottom: 1px solid var(--bg-border-dark);
   border: none;
   border-radius: 0.2rem;
 
@@ -271,13 +365,36 @@ input {
   width: 48%;
 }
 
+.help {
+  color: var(--navy);
+}
+
+/*#############
+####GRIFIC#####
+##############*/
+.grafic-container {
+  width: min(90vw, 800px);
+  height: 400px;
+  background: var(--bg-color);
+  margin: 20px auto;
+  border-radius: 0.5rem;
+  color: var(--gray);
+}
+
+.bills-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
 /*##############
 #####FOOTER#####
 ###############*/
 footer {
   text-align: center;
   padding: 4rem 0 2rem;
-  color: #363f5f;
+  color: var(--titles-color);
   opacity: 0.6;
 }
 
